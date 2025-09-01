@@ -29,8 +29,15 @@ jobs:
     - name: Generar reporte HTML de pruebas
       run: mvn surefire-report:report
 
+    - name: Verificar existencia del reporte
+      run: |
+        if [ ! -f target/site/surefire-report.html ]; then
+          echo "❌ El reporte HTML no fue generado"
+          exit 1
+        fi
+
     - name: Subir reporte como artefacto
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: reporte-tests
         path: target/site/surefire-report.html
