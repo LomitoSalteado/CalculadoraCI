@@ -25,3 +25,12 @@ jobs:
 
     - name: Ejecutar pruebas
       run: mvn test
+
+    - name: Generar reporte HTML de pruebas
+      run: mvn surefire-report:report
+
+    - name: Subir reporte como artefacto
+      uses: actions/upload-artifact@v3
+      with:
+        name: reporte-tests
+        path: target/site/surefire-report.html
