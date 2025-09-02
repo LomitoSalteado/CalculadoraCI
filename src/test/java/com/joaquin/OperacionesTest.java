@@ -31,6 +31,6 @@ class OperacionesTest {
         Exception exception = assertThrows(ArithmeticException.class, () -> {
             Operaciones.dividir(10, 0);
         });
-        assertEquals("No se puede dividir por cero", exception.getMessage());
+        assertEquals("Error: No se puede dividir por cero.", exception.getMessage());
     }
 }

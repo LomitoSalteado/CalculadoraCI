@@ -1,0 +1,43 @@
+name: Java CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clonar repositorio
+      uses: actions/checkout@v3
+
+    - name: Instalar Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Compilar con Maven
+      run: mvn -B package --file pom.xml
+
+    - name: Ejecutar pruebas
+      run: mvn test
+
+    - name: Generar reporte HTML de pruebas
+      run: mvn surefire-report:report
+
+    - name: Verificar existencia del reporte
+      run: |
+        if [ ! -f target/site/surefire-report.html ]; then
+          echo "❌ El reporte HTML no fue generado"
+          exit 1
+        fi
+
+    - name: Subir reporte como artefacto
+      uses: actions/upload-artifact@v4
+      with:
+        name: reporte-tests
+        path: target/site/surefire-report.html
