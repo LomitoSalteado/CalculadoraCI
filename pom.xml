@@ -84,6 +84,13 @@
           <mainClass>com.joaquin.CalculadoraAPI</mainClass>
         </configuration>
       </plugin>
+
+      <!-- Genera el sitio con el reporte HTML -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.12.1</version>
+      </plugin>
     </plugins>
   </build>
 
